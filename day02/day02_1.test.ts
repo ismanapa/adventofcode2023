@@ -20,5 +20,4 @@ describe("Day 02", () => {
         
         console.log("result day 02 - part 1:", result);
     });
-
 });
