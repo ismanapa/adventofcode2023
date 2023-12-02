@@ -13,7 +13,7 @@ describe("Day 01", () => {
         expect(result).toBe(281);
     })
 
-    test.only("Shows answer of input", () => {
+    test("Shows answer of input", () => {
         const result = day1("input");
 
         console.log("result day 01:", result);

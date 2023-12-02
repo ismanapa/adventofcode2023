@@ -5,76 +5,31 @@ export function day1(mode: "test1" | "test2" | "input") {
 
   return data
     .map((line) => {
-      const formattedLine = convertStringsToNumbers(sanitize(line));
-      const value = parseInt(
-        `${getNumberFromLeft(formattedLine)}${getNumberFromRight(
-          formattedLine
-        )}`
-      );
-      return value;
+      const firstDigit = convertStringsToNumbers(line.match(
+        /(\d|one|two|three|four|five|six|seven|eight|nine).*/
+      )![1]);
+
+      const lastDigit = convertStringsToNumbers(line.match(
+        /.*(\d|one|two|three|four|five|six|seven|eight|nine)/
+      )![1]);
+
+      return parseInt(`${firstDigit}${lastDigit}`);
     })
     .reduce((val, acc) => val + acc, 0);
 }
 
-function getNumberFromLeft(line: string): string {
-  const el = line.split("").find((char) => !isNaN(parseInt(char)));
-  return el!;
-}
-
-function getNumberFromRight(line: string): string {
-  const el = line
-    .split("")
-    .reverse()
-    .find((char) => !isNaN(parseInt(char)));
-  return el!;
-}
-
-function sanitize(input: string): string {
-    return input
-        .replaceAll('eightwo', 'eighttwo')
-        .replaceAll('twone', 'twoone')
-        .replaceAll('nineight', 'nineeight')
-        .replaceAll('threeight', 'threeeight')
-        .replaceAll('sevenine', 'sevennine')
-        .replaceAll('oneight', 'oneeight')
-        .replaceAll('fiveight', 'fiveeight')
-}
-
-function convertStringsToNumbers(line: string): string {
+function convertStringsToNumbers(number: string): string {
   const numbers = [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-    "six",
-    "seven",
-    "eight",
-    "nine",
-  ];
-
-  let indexes = getIndexesOfNumber(line, numbers);
-
-  while (indexes.some((i) => i != -1)) {
-    const lowerIndexPosition = indexes.indexOf(
-      Math.min(...indexes.filter((i) => i !== -1))
-    );
-    line = line.replace(
-      numbers[lowerIndexPosition],
-      (lowerIndexPosition + 1).toString()
-    );
-    indexes = getIndexesOfNumber(line, numbers);
-  }
-
-  return line;
-}
-
-function getIndexesOfNumber(line: string, numbers: string[]): number[] {
-  const indexes: number[] = [];
-
-  numbers.forEach((number, index) => {
-    indexes[index] = line.indexOf(number);
-  });
-
-  return indexes;
+    ["one", "1"],
+    ["two", "2"],
+    ["three", "3"],
+    ["four", "4"],
+    ["five", "5"],
+    ["six", "6"],
+    ["seven", "7"],
+    ["eight", "8"],
+    ["nine", "9"],
+  ]
+  const num = numbers.find(e => e[0] === number);
+  return num ? num[1] : number;
 }
