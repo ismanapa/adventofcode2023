@@ -1,9 +1,5 @@
 import { readFileLines } from "../utils";
-
-type Card = {
-  numbers: string[];
-  winningNumbers: string[];
-};
+import { mapCardEntry } from "./shared";
 
 export function day04_1(mode: "test1" | "input") {
   const data = readFileLines(`${__dirname}/${mode}.txt`);
@@ -14,7 +10,7 @@ export function day04_1(mode: "test1" | "input") {
       const prizeNumbers = card.winningNumbers.filter((number) =>
         card.numbers.includes(number)
       );
-      
+
       return {
         ...card,
         prizeNumbers,
@@ -22,15 +18,6 @@ export function day04_1(mode: "test1" | "input") {
       };
     })
     .reduce((acc, prizedCard) => acc + prizedCard.points, 0);
-}
-
-function mapCardEntry(line: string): Card {
-  const splittedData = line.split("|");
-
-  return {
-    numbers: splittedData[1].match(/\d+/g)!,
-    winningNumbers: splittedData[0].split(":")[1].match(/\d+/g)! ?? [],
-  };
 }
 
 function getCardPoints(prizeNumbers: string[]) {
