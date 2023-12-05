@@ -2,7 +2,7 @@ export type AlmanacInfo = [number, number, number];
 
 export type AlmanacMap = {
   rawRanges: AlmanacInfo[];
-  map: Record<number, number>;
+//   map: Record<number, number>;
 };
 
 export type Almanac = {
@@ -33,31 +33,31 @@ export function mapRawDataToAlmanac(data: string): Almanac {
     maps: [
       {
         rawRanges: seedToSoilRawRange,
-        map: generateRangeFromRawRange(seedToSoilRawRange),
+        // map: generateRangeFromRawRange(seedToSoilRawRange),
       },
       {
         rawRanges: soilToFertilizerRawRange,
-        map: generateRangeFromRawRange(soilToFertilizerRawRange),
+        // map: generateRangeFromRawRange(soilToFertilizerRawRange),
       },
       {
         rawRanges: fertilizerToWaterRawRange,
-        map: generateRangeFromRawRange(fertilizerToWaterRawRange),
+        // map: generateRangeFromRawRange(fertilizerToWaterRawRange),
       },
       {
         rawRanges: waterToLightRawRange,
-        map: generateRangeFromRawRange(waterToLightRawRange),
+        // map: generateRangeFromRawRange(waterToLightRawRange),
       },
       {
         rawRanges: lightToTemperatureRawRange,
-        map: generateRangeFromRawRange(lightToTemperatureRawRange),
+        // map: generateRangeFromRawRange(lightToTemperatureRawRange),
       },
       {
         rawRanges: temperatureToHumidityRawRange,
-        map: generateRangeFromRawRange(temperatureToHumidityRawRange),
+        // map: generateRangeFromRawRange(temperatureToHumidityRawRange),
       },
       {
         rawRanges: humidityToLocationRawRange,
-        map: generateRangeFromRawRange(humidityToLocationRawRange),
+        // map: generateRangeFromRawRange(humidityToLocationRawRange),
       },
     ],
   };
