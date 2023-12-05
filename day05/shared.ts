@@ -2,19 +2,19 @@ export type AlmanacInfo = [number, number, number];
 
 export type AlmanacMap = {
   rawRanges: AlmanacInfo[];
-//   map: Record<number, number>;
+  //   map: Record<number, number>;
 };
 
 export type Almanac = {
   seeds: number[];
   maps: AlmanacMap[];
-//   seedToSoilMap: AlmanacMap;
-//   soilToFertilizer: AlmanacMap;
-//   fertilizerToWater: AlmanacMap;
-//   waterToLight: AlmanacMap;
-//   lightToTemperature: AlmanacMap;
-//   temperatureToHumidity: AlmanacMap;
-//   humidityToLocation: AlmanacMap;
+  //   seedToSoilMap: AlmanacMap;
+  //   soilToFertilizer: AlmanacMap;
+  //   fertilizerToWater: AlmanacMap;
+  //   waterToLight: AlmanacMap;
+  //   lightToTemperature: AlmanacMap;
+  //   temperatureToHumidity: AlmanacMap;
+  //   humidityToLocation: AlmanacMap;
 };
 
 export function mapRawDataToAlmanac(data: string): Almanac {
@@ -71,6 +71,27 @@ function processMapRawData(raw: string): AlmanacInfo[] {
     .map((d) => d.map(Number) as AlmanacInfo);
 }
 
+export function mapInfoToTarget(originId: number, ranges: AlmanacInfo[]) {
+  let targetId;
+
+  ranges.forEach((range) => {
+    const source = range[1];
+    const destination = range[0];
+    const length = range[2];
+
+    if (originId < source + length && originId >= source) {
+      targetId = destination + (originId - source);
+    }
+  });
+
+  if (!targetId) {
+    targetId = originId;
+  }
+
+  return targetId;
+}
+
+// deprecated
 function generateRangeFromRawRange(rawRange: AlmanacInfo[]) {
   const transformMap: Record<number, number> = {};
 
