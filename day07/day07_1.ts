@@ -1,19 +1,10 @@
 import { readFileLines } from "../utils";
-import { orderedLabels } from "./shared";
-
-type Hand = {
-  hand: string;
-  bid: number;
-};
-
-type ParsedHand = Hand & {
-  parsedData: [string, number][];
-};
+import { Hand, ParsedHand } from "./shared";
 
 export function day07_1(mode: "input" | "test1") {
   const rawData = readFileLines(`${__dirname}/${mode}.txt`);
 
-  const d = parseData(rawData)
+  return parseData(rawData)
     .map(toParsedHand)
     .map((parsedHand) => {
       return {
@@ -28,12 +19,7 @@ export function day07_1(mode: "input" | "test1") {
       }
 
       return a.handValueByType - b.handValueByType;
-    });
-
-    console.log(d)
-
-
-    return d
+    })
     .reduce((acc, hand, index) => {
       return acc + hand.bid * (index + 1);
     }, 0);
@@ -103,3 +89,19 @@ function getHandPointsByLabels(parsedHand: ParsedHand): number {
     );
   }, 0);
 }
+
+// A, K, Q, J, T, 9, 8, 7, 6, 5, 4, 3, or 2
+const orderedLabels = new Map<string, number>();
+orderedLabels.set("A", 14);
+orderedLabels.set("K", 13);
+orderedLabels.set("Q", 12);
+orderedLabels.set("J", 11);
+orderedLabels.set("T", 10);
+orderedLabels.set("9", 9);
+orderedLabels.set("8", 8);
+orderedLabels.set("7", 7);
+orderedLabels.set("6", 6);
+orderedLabels.set("5", 5);
+orderedLabels.set("4", 4);
+orderedLabels.set("3", 3);
+orderedLabels.set("2", 2);
