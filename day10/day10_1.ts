@@ -19,13 +19,17 @@ export function day10_1(mode: "input" | "test1" | "test2") {
 
     const pipeNs = getPipeNeighbors(map, pipe);
 
-    const nextPipe = pipeNs.find((p) => !pipeLoop.some((pl) => p.id === pl.id));
+    const nextPipe =
+      pipeNs.length === 1
+        ? pipeNs[0]
+        : pipeNs.find((p) => p.id !== pipeLoop[pipeLoop.length - 2].id);
 
-    if (!nextPipe) {
+    if (nextPipe?.type === "S") {
       isLoopComplete = true;
-    } else {
-      pipeLoop.push(nextPipe);
+      break;
     }
+
+    pipeLoop.push(nextPipe!);
   }
 
   return pipeLoop.length / 2;
