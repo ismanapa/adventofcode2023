@@ -45,7 +45,7 @@ export function day11_1(mode: "input" | "test1" | "test2") {
     }
   );
 
-  return galaxyPairs.reduce((acc, pair) => {
+  return [galaxyPairs[2]].reduce((acc, pair) => {
     return acc + distantBetweenGalaxies(pair);
   }, 0);
 }
